@@ -54,6 +54,15 @@ class Add_Adsorbate():
             self.pos = np.append(self.prim_lattice.T @ (np.array([2/3, 2/3])+self.offsite), np.max(self.surface.positions[:, 2]) + self.z_bias)
         elif self.site == 'bridge':
             self.pos = np.append(self.prim_lattice.T @ (np.array([1/2, 0])+self.offsite), np.max(self.surface.positions[:, 2]) + self.z_bias)
+        elif self.site == 'tetra1':
+            self.z_t1_bias = - self.prim_lattice[0][0] * (np.sqrt(6) / 3 - np.sqrt(6) / 4)
+            self.pos = np.append(self.prim_lattice.T @ (np.array([2/3, 2/3])+self.offsite), np.max(self.surface.positions[:, 2]) + self.z_t1_bias)
+        elif self.site == 'tetra2':
+            self.z_t2_bias = - self.prim_lattice[0][0] * np.sqrt(6) / 4
+            self.pos = np.append(self.prim_lattice.T @ (np.array([0, 0])+self.offsite), np.max(self.surface.positions[:, 2]) + self.z_t2_bias)
+        elif self.site == 'octa':
+            self.z_o_bias = - self.prim_lattice[0][0] / 2
+            self.pos = np.append(self.prim_lattice.T @ (np.array([1/3, 1/3])+self.offsite), np.max(self.surface.positions[:, 2]) + self.z_o_bias)
         else:
             raise ValueError(f"Adsorption site type {self.site} not recognized.")
 
